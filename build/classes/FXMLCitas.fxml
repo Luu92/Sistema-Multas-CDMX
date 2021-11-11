@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="624.0" prefWidth="1414.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FXMLCitasController">
+   <children>
+      <Pane layoutX="8.0" layoutY="14.0" prefHeight="88.0" prefWidth="1392.0" style="-fx-background-color: #92D050;">
+         <children>
+            <Label layoutX="22.0" layoutY="14.0" text="Agendar Cita">
+               <font>
+                  <Font name="System Bold" size="36.0" />
+               </font></Label>
+         </children>
+      </Pane>
+      <DatePicker fx:id="calendarioCita" layoutX="30.0" layoutY="169.0" prefHeight="33.0" prefWidth="191.0" />
+      <Label fx:id="lblcitaFecha" layoutX="32.0" layoutY="105.0" text="Selecciona Fecha ">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="233.0" fitWidth="387.0" layoutX="819.0" layoutY="110.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@img/calendario2.jpg" />
+         </image>
+      </ImageView>
+      <Button fx:id="btnAgregar" layoutX="593.0" layoutY="168.0" mnemonicParsing="false" onAction="#agendar" prefHeight="35.0" prefWidth="126.0" style="-fx-background-color: #92D050;" text="AGREGAR">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Button>
+      <TextField fx:id="txtaAgregarHora" layoutX="326.0" layoutY="168.0" prefHeight="35.0" prefWidth="32.0" />
+      <Label fx:id="lblHora" layoutX="326.0" layoutY="105.0" text="Escriba la hora ">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Button fx:id="btnSalir" layoutX="15.0" layoutY="576.0" mnemonicParsing="false" onAction="#salir" text="salir " />
+      <Button fx:id="btnMostrar" layoutX="949.0" layoutY="537.0" mnemonicParsing="false" onAction="#mostrarTabla" prefHeight="35.0" prefWidth="151.0" style="-fx-background-color: #92D050;" text="MOSTRAR LISTA">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Button>
+      <TableView fx:id="tabla_consultar" layoutX="679.0" layoutY="351.0" prefHeight="165.0" prefWidth="640.0">
+        <columns>
+          <TableColumn fx:id="columna_numCita" prefWidth="88.0" text="Numero Cita" />
+          <TableColumn fx:id="columna_fecha" minWidth="0.0" prefWidth="108.0" text="Fecha" />
+            <TableColumn fx:id="columna_hora" prefWidth="121.0" text="Hora" />
+            <TableColumn fx:id="columna_lugar" prefWidth="322.0" text="Lugar de verificacion " />
+        </columns>
+      </TableView>
+      <Button fx:id="btnCrearPdf" layoutX="146.0" layoutY="554.0" mnemonicParsing="false" onAction="#crearPdf" prefHeight="35.0" prefWidth="151.0" style="-fx-background-color: #92D050;" text="CREAR PDF ">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Button>
+      <ComboBox fx:id="cbTlahuac" layoutX="326.0" layoutY="371.0" onAction="#comboxTlahuac" prefHeight="25.0" prefWidth="267.0" promptText="DELEGACION TLAHUAC " />
+      <ComboBox fx:id="cbCoyoacan" layoutX="33.0" layoutY="408.0" onAction="#comboxCoyoacan" prefHeight="25.0" prefWidth="267.0" promptText="DELEGACION COYOACÁN" />
+      <Label fx:id="lblDelegacionYvereficentro" layoutX="35.0" layoutY="220.0" prefHeight="35.0" prefWidth="732.0" text="Selecciona Delegacion y escoge el vereficentro  ">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <ComboBox fx:id="cbAlbaroObregon" layoutX="33.0" layoutY="264.0" onAction="#comboxAlbaroObregon" prefHeight="25.0" prefWidth="267.0" promptText="DELEGACION ÁLVARO OBREGÓN" />
+      <ComboBox fx:id="cbTlalplan" layoutX="326.0" layoutY="408.0" onAction="#comboxTlalplan" prefHeight="25.0" prefWidth="267.0" promptText="DELEGACION TLALPLAN" />
+      <ComboBox fx:id="cbXochimilco" layoutX="326.0" layoutY="488.0" onAction="#comboxXochimilco" prefHeight="25.0" prefWidth="267.0" promptText="DELEGACION XOCHIMILCO" />
+      <ComboBox fx:id="cbIztacalco" layoutX="326.0" layoutY="264.0" onAction="#comboxIztacalco" prefHeight="25.0" prefWidth="267.0" promptText="DELEGACION IZTACALCO " />
+      <ComboBox fx:id="cbIztapalapa" layoutX="326.0" layoutY="298.0" onAction="#comboxIztapalapa" prefHeight="25.0" prefWidth="267.0" promptText="DELEGACION IZTAPALAPA" />
+      <Button fx:id="btnImprimir" layoutX="326.0" layoutY="554.0" mnemonicParsing="false" onAction="#imprimirReportePdf" prefHeight="35.0" prefWidth="151.0" style="-fx-background-color: #92D050;" text="IMPRIMIR PDF ">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Button>
+      <ComboBox fx:id="cbAzcapotzalco" layoutX="32.0" layoutY="298.0" onAction="#comboxAzcapotzalco" prefHeight="25.0" prefWidth="267.0" promptText="DELEGACION AZCAPOTZALCO " />
+      <ComboBox fx:id="cbBenitoJuarez" layoutX="32.0" layoutY="334.0" onAction="#comboxBenitoJuarez" prefHeight="25.0" prefWidth="267.0" promptText="DELEGACION BENITO JUÁREZ " />
+      <ComboBox fx:id="cbCuajimalpa" layoutX="32.0" layoutY="371.0" onAction="#comboxCuajimalpa" prefHeight="25.0" prefWidth="267.0" promptText="DELEGACION CUAJIMALPA DE MORELOS " />
+      <ComboBox fx:id="cbCuauhtemoc" layoutX="33.0" layoutY="448.0" onAction="#comboxCuauhtemoc" prefHeight="25.0" prefWidth="267.0" promptText="DELEGACION CUAUHTÉMOC " />
+      <ComboBox fx:id="cbGustavoMadero" layoutX="33.0" layoutY="488.0" onAction="#comboxGustavoMadero" prefHeight="25.0" prefWidth="267.0" promptText="DELEGACION GUSTAVO A. MADERO" />
+      <ComboBox fx:id="cbMiguelHidalgo" layoutX="326.0" layoutY="334.0" onAction="#comboxMiguelHidalgo" prefHeight="25.0" prefWidth="267.0" promptText="DELEGACION MIGUEL HIDALGO" />
+      <ComboBox fx:id="cbVenustianoCarranza" layoutX="326.0" layoutY="448.0" onAction="#comboxVenustianoCarranza" prefHeight="25.0" prefWidth="267.0" promptText="DELEGACION VENUSTIANO CARRANZA " />
+      <TextField fx:id="txtPuntos" layoutX="364.0" layoutY="168.0" prefHeight="35.0" prefWidth="18.0" text=":" />
+      <TextField fx:id="txtAgregarMinutos" layoutX="390.0" layoutY="168.0" prefHeight="35.0" prefWidth="32.0" />
+      <ComboBox fx:id="cbAmPm" layoutX="429.0" layoutY="173.0" onAction="#comboxAmPm" prefHeight="25.0" prefWidth="61.0" promptText="AM" />
+      <Label layoutX="327.0" layoutY="203.0" prefHeight="17.0" prefWidth="191.0" text="Horarios de 9:00 am a  20:00 pm " />
+   </children>
+</AnchorPane>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="691.0" prefWidth="869.0" stylesheets="@css/EstilosMultasVistaDetalles.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MultasVistaDetallesController">
+    <children>
+      <Pane prefHeight="691.0" prefWidth="300.0" styleClass="PanelDetalles" stylesheets="@css/EstilosMultasVistaDetalles.css">
+         <children>
+            <Label alignment="CENTER" contentDisplay="TOP" layoutX="11.0" layoutY="55.0" prefHeight="201.0" prefWidth="278.0" styleClass="LabelDetalles" text="Detalles de Multas" textAlignment="CENTER" />
+            <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="50.0" layoutY="300.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@img/SistemaMultas-Movil.png" />
+               </image>
+            </ImageView>
+         </children></Pane>
+      <TableView fx:id="TablaDetalles" layoutX="328.0" layoutY="118.0" prefHeight="291.0" prefWidth="460.0">
+        <columns>
+          <TableColumn fx:id="ColFolio" prefWidth="79.0" text="Folio" />
+          <TableColumn fx:id="ColMotivo" minWidth="0.0" prefWidth="247.0" text="Motivo" />
+            <TableColumn fx:id="ColCosto" prefWidth="133.0" text="Costo $" />
+        </columns>
+      </TableView>
+      <Label alignment="CENTER" contentDisplay="TOP" layoutX="325.0" layoutY="50.0" prefHeight="59.0" prefWidth="466.0" styleClass="LabelTitulo" stylesheets="@css/EstilosMultasVistaDetalles.css" text="Lista de Multas al Reglamento de Transito" textAlignment="CENTER" />
+      <Button fx:id="btnPagar" layoutX="325.0" layoutY="612.0" mnemonicParsing="false" onAction="#AccionPagar" onMouseClicked="#regresaVentana" prefHeight="50.0" prefWidth="166.0" styleClass="btnPagar" stylesheets="@css/EstilosMultasVistaDetalles.css" text="Pagar" />
+      <Button fx:id="btnAgendar" layoutX="539.0" layoutY="612.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="152.0" styleClass="btnAgendar" stylesheets="@css/EstilosMultasVistaDetalles.css" text="Agendar" />
+      <ImageView fitHeight="35.0" fitWidth="39.0" layoutX="444.0" layoutY="620.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@img/SistemaMultas-Dinero.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="27.0" fitWidth="36.0" layoutX="663.0" layoutY="624.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@img/SistemaMultas-Calendario.png" />
+         </image>
+      </ImageView>
+      <TextArea fx:id="txtFolio" layoutX="325.0" layoutY="442.0" prefHeight="43.0" prefWidth="172.0" promptText="Folio" />
+      <TextArea fx:id="txtMotivo" layoutX="506.0" layoutY="442.0" prefHeight="43.0" prefWidth="189.0" promptText="Motivo" />
+      <TextArea fx:id="txtCosto" layoutX="710.0" layoutY="442.0" prefHeight="43.0" prefWidth="102.0" promptText="Costo" />
+      <Button fx:id="btnAgregar" layoutX="325.0" layoutY="524.0" mnemonicParsing="false" onAction="#regresaVentana" onMouseClicked="#regresaVentana" prefHeight="50.0" prefWidth="143.0" styleClass="btnAgregar" stylesheets="@css/EstilosMultasVistaDetalles.css" text="Agregar" textFill="WHITE" />
+    </children>
+</AnchorPane>
