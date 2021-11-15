@@ -44,7 +44,7 @@ public class FXMLDocumentController implements Initializable {
 
 
     @FXML
-    private void eventButton() throws IOException{
+    private void eventButton(ActionEvent event) throws IOException{
             
             if(validarPlaca() == true){
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("MultasVistaDetalles.fxml"));
