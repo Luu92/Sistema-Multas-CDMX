@@ -39,7 +39,7 @@ public class ConeccionDBTest {
     public void testClose_ResultSet() throws Exception {
         System.out.println("> Entrando a testClose_ResultSet() <");
         ResultSet rs = null;
-        ConeccionDB.close(rs);
+        //ConeccionDB.close(rs);
         // TODO review the generated test code and remove the default call to fail.
         if(rs == null)
             fail("Error al Cerrar la Base.");

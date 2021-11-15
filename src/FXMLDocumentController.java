@@ -1,59 +1,28 @@
 
-import com.sun.javafx.scene.control.skin.Utils;
-import java.sql.Connection;//conexion a BD
-import java.sql.DriverManager;//driver de conexion
-import java.sql.ResultSet;//resultado final de datos
-import java.sql.ResultSetMetaData;//resultado de metadatos
-import java.sql.SQLException;//Tratamiento de Errros de BD SQL
-import java.sql.Statement;//Generador de sentencias SQL
-import java.text.SimpleDateFormat;//Formatear datos
-import java.util.Date;//fecha de sistema
-import javax.swing.ImageIcon;//Tratamiento de imagenes
-import javax.swing.JOptionPane;//ventanas emergentes
-import javax.swing.table.DefaultTableModel;//tabla de datos
+import DTOModel.Auto;
+import Data.AutoJDBC;
+import java.io.IOException;
 
 //LIBRERIAS PARA CONECTARSE A LA BASE DE DATOS
 import java.sql.Connection;//conexion a BD
-import java.sql.DriverManager;//driver de conexion
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;//resultado final de datos
-import java.sql.ResultSetMetaData;//resultado de metadatos
-import java.sql.SQLException;//Tratamiento de Errros de BD SQL
-import java.sql.Statement;//Generador de sentencias SQL
-import java.text.SimpleDateFormat;//Formatear datos
-import java.time.DayOfWeek;
-import java.time.format.FormatStyle;
-import java.util.Date;//fecha de sistema
-import java.util.Observable;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.paint.Color;
-import javafx.util.converter.LocalDateStringConverter;
-import javax.swing.JTextField;
 
+import java.sql.ResultSet;//resultado final de datos
+import java.sql.Statement;//Generador de sentencias SQL
 import java.net.URL;
-import java.sql.SQLException;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
+import javafx.scene.layout.AnchorPane;
 import javax.swing.JOptionPane;
 
 /**
  *
- * @author Mi Pc
+ * @author DevSolutions
  */
 public class FXMLDocumentController implements Initializable {
 
@@ -61,6 +30,8 @@ public class FXMLDocumentController implements Initializable {
     private Button btnBuscar;
     @FXML
     private Button btnSalir;
+    @FXML 
+    private AnchorPane ap;
 
     @FXML
     private TextField txtBuscar;
@@ -68,44 +39,39 @@ public class FXMLDocumentController implements Initializable {
     public Connection cn;
     public Statement stmt;
     public ResultSet rs;
+    
+    
 
-      //metodo para conectar a base de datos
-    public void conectarBase() {
-        try { //inicia try
-            Class.forName("com.mysql.jdbc.Driver");
-            cn = DriverManager.getConnection("jdbc:mysql://localhost/bdtransito", "root", "");
-            stmt = cn.createStatement();//genera sentencias sobre objetos de base de datos
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error de base de datos 1: \n" + ex);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error de base de datos 2:" + e);
-        }
-    }//termina metodo conectar
 
     @FXML
-    private void eventButton(ActionEvent event) {
-
-        try {
-            conectarBase();
-
-            rs = stmt.executeQuery("select * from tplaca where placa ='" + txtBuscar.getText() + "'");
-
-            JOptionPane.showMessageDialog(null, "Buscando placa...");
-            if (rs.next() == true) {
-                //imprime datos de libro
-                JOptionPane.showMessageDialog(null, "TIENE MULTAS PENDIENTES");
-
-            } else {
-                JOptionPane.showMessageDialog(null, "no tienes multa");
-                JOptionPane.showMessageDialog(null, "0 Sin adeudos");
-
+    private void eventButton() throws IOException{
+            
+            if(validarPlaca() == true){
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("MultasVistaDetalles.fxml"));
+                AnchorPane root = (AnchorPane)loader.load();
+                MultasVistaDetallesController controlador = (MultasVistaDetallesController)loader.getController();
+                ap.getChildren().clear();
+                ap.getChildren().add(root);
             }
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error de BD Busqueda" + ex);
-        }
-
+            else{
+                JOptionPane.showMessageDialog(null,"La placa no se encontro en el padrón");
+            }
+            
     }
+    
+    
 
+    private boolean validarPlaca(){
+        AutoJDBC autoJDBC = new AutoJDBC();
+        List<Auto> nuevaListaAutos = autoJDBC.mostrarDatos();
+        for (Auto nuevaListaAuto : nuevaListaAutos) {
+             if(nuevaListaAuto.getPlaca().equals(txtBuscar.getText().toUpperCase())){
+                    return true;
+                }     
+        }
+        return false;
+    }
+    
     @FXML
     public void Salir() {
 
@@ -330,7 +296,15 @@ public class FXMLDocumentController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        AutoJDBC autoJDBC = new AutoJDBC();
+            List<Auto> nuevaListaAutos = autoJDBC.mostrarDatos();
+            System.out.println(txtBuscar.getText().toUpperCase()+ "<---------------");
+            
+            nuevaListaAutos.forEach(listaMulta -> {  
+                
+                System.out.println(listaMulta.toString());    
+            });
+        
     }
 
 }
