@@ -40,6 +40,10 @@ public class FXMLDocumentController implements Initializable {
     private AnchorPane ap;
     @FXML
     private TextField txtBuscar;
+
+    MultasVistaDetallesController stage1;
+    
+    
    
     @FXML
     private void btnListarMultas(ActionEvent event) {
@@ -49,6 +53,9 @@ public class FXMLDocumentController implements Initializable {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("MultasVistaDetalles.fxml"));
                 Parent root = loader.load();
                 MultasVistaDetallesController controlador = loader.getController();
+                controlador.placaStage1(txtBuscar.getText().toUpperCase());
+                //MultasVistaDetallesController multasVistaDetalles = new MultasVistaDetallesController();
+                //multasVistaDetalles.placaStage1(txtBuscar.getText());
                 Scene scene = new Scene(root);
                 Stage stage = new Stage();
                 stage.setScene(scene);
@@ -80,14 +87,14 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     public void Salir() {
-
         int confirmaSalida = JOptionPane.showConfirmDialog(null, "¿Quieres salir?", "Mensaje importante", JOptionPane.YES_NO_OPTION);
         if (confirmaSalida == 0) {
             System.exit(0);//cierra ventana    
         }
-
     }
-
+    
+    
+    
     @FXML
     public void Atencion() {
 
@@ -304,8 +311,7 @@ public class FXMLDocumentController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         AutoJDBC autoJDBC = new AutoJDBC();
         List<Auto> nuevaListaAutos = autoJDBC.mostrarDatos();
-        System.out.println(txtBuscar.getText().toUpperCase() + "<---------------");
-
+        
         nuevaListaAutos.forEach(listaMulta -> {
 
             System.out.println(listaMulta.toString());

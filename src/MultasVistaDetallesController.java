@@ -19,6 +19,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -42,6 +43,12 @@ public class MultasVistaDetallesController implements Initializable {
     private Button btnPagar;
     @FXML
     private Button btnAgendar;
+    
+    private String placa;
+    FXMLDocumentController instancia;
+
+    MultasVistaDetallesController stage_2;
+    
     MultaJDBC listamultasJDBC = new MultaJDBC();
     private ObservableList<Multa> listaMultas = null; //FXCollections.observableArrayList();
 
@@ -61,15 +68,37 @@ public class MultasVistaDetallesController implements Initializable {
             e.printStackTrace(System.out);
         }
     }
+    
+   
+    public void placaStage1(String txtBuscar){
+        this.placa = txtBuscar;
+        MultaJDBC listamultasJDBC = new MultaJDBC();
+        listaMultas = FXCollections.observableArrayList(listamultasJDBC.mostrarDatos());
+        for (Multa listaMulta : listaMultas) {
+            if(placa.equals(listaMulta.getPlaca())){
+                System.out.println("Entro Chido");
+                ColMotivo.setCellValueFactory(new PropertyValueFactory<>("motivo"));
+                ColCosto.setCellValueFactory( new PropertyValueFactory<>("precio"));
+                ColEstatus.setCellValueFactory( new PropertyValueFactory<>("estado"));
+                TablaDetalles.setItems(listaMultas);
+                //listaMultas.add(listaMulta);
+            }
+            else{
+                System.out.println("placa: " + listaMulta.getPlaca());
+            }
+      
+        }
+        
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        MultaJDBC listamultasJDBC = new MultaJDBC();
-        listaMultas = FXCollections.observableArrayList(listamultasJDBC.mostrarDatos());
-        ColMotivo.setCellValueFactory(new PropertyValueFactory<>("motivo"));
-        ColCosto.setCellValueFactory( new PropertyValueFactory<>("precio"));
-        ColEstatus.setCellValueFactory( new PropertyValueFactory<>("estado"));
-        TablaDetalles.setItems(listaMultas);
+        //MultaJDBC listamultasJDBC = new MultaJDBC();
+        //listaMultas = FXCollections.observableArrayList(listamultasJDBC.mostrarDatos());
+        //ColMotivo.setCellValueFactory(new PropertyValueFactory<>("motivo"));
+        //ColCosto.setCellValueFactory( new PropertyValueFactory<>("precio"));
+        //ColEstatus.setCellValueFactory( new PropertyValueFactory<>("estado"));
+        //TablaDetalles.setItems(listaMultas);
     }
 
     @FXML
