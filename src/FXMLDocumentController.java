@@ -1,6 +1,7 @@
 
 import DTOModel.Auto;
 import Data.AutoJDBC;
+import com.sun.javafx.logging.PlatformLogger.Level;
 import java.io.IOException;
 
 //LIBRERIAS PARA CONECTARSE A LA BASE DE DATOS
@@ -15,10 +16,15 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import javax.swing.JOptionPane;
+import jxl.common.Logger;
 
 /**
  *
@@ -30,48 +36,48 @@ public class FXMLDocumentController implements Initializable {
     private Button btnBuscar;
     @FXML
     private Button btnSalir;
-    @FXML 
+    @FXML
     private AnchorPane ap;
-
     @FXML
     private TextField txtBuscar;
-    //clases de conexion y sus objetos
-    public Connection cn;
-    public Statement stmt;
-    public ResultSet rs;
-    
-    
-
-
+   
     @FXML
-    private void eventButton(ActionEvent event) throws IOException{
-            
-            if(validarPlaca() == true){
+    private void btnListarMultas(ActionEvent event) {
+
+        try {
+            if (validarPlaca() == true) {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("MultasVistaDetalles.fxml"));
-                AnchorPane root = (AnchorPane)loader.load();
-                MultasVistaDetallesController controlador = (MultasVistaDetallesController)loader.getController();
-                ap.getChildren().clear();
-                ap.getChildren().add(root);
+                Parent root = loader.load();
+                MultasVistaDetallesController controlador = loader.getController();
+                Scene scene = new Scene(root);
+                Stage stage = new Stage();
+                stage.setScene(scene);
+                stage.show();
+                Stage myStage = (Stage) this.btnBuscar.getScene().getWindow();
+                myStage.getIcons().add(new Image(SistemaMultasPSP0.class.getResourceAsStream("/img/SistemaMultas-Logo.png")));
+                myStage.close();
             }
             else{
-                JOptionPane.showMessageDialog(null,"La placa no se encontro en el padrón");
+                JOptionPane.showMessageDialog(null, "La placa no se encontro en el padrón");
             }
-            
-    }
-    
-    
 
-    private boolean validarPlaca(){
+        } catch (IOException ex) {
+            ex.printStackTrace(System.out);
+            //Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private boolean validarPlaca() {
         AutoJDBC autoJDBC = new AutoJDBC();
         List<Auto> nuevaListaAutos = autoJDBC.mostrarDatos();
         for (Auto nuevaListaAuto : nuevaListaAutos) {
-             if(nuevaListaAuto.getPlaca().equals(txtBuscar.getText().toUpperCase())){
-                    return true;
-                }     
+            if (nuevaListaAuto.getPlaca().equals(txtBuscar.getText().toUpperCase())) {
+                return true;
+            }
         }
         return false;
     }
-    
+
     @FXML
     public void Salir() {
 
@@ -288,7 +294,7 @@ public class FXMLDocumentController implements Initializable {
 
         }
 
-     //   int confirmaSalida=JOptionPane.showConfirmDialog(null,"¿Quieres salir?","Mensaje importante",JOptionPane.YES_NO_OPTION);
+        //   int confirmaSalida=JOptionPane.showConfirmDialog(null,"¿Quieres salir?","Mensaje importante",JOptionPane.YES_NO_OPTION);
         // if (confirmaSalida==0) {
         //   System.exit(0);//cierra ventana    
         // }
@@ -297,14 +303,14 @@ public class FXMLDocumentController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         AutoJDBC autoJDBC = new AutoJDBC();
-            List<Auto> nuevaListaAutos = autoJDBC.mostrarDatos();
-            System.out.println(txtBuscar.getText().toUpperCase()+ "<---------------");
-            
-            nuevaListaAutos.forEach(listaMulta -> {  
-                
-                System.out.println(listaMulta.toString());    
-            });
-        
+        List<Auto> nuevaListaAutos = autoJDBC.mostrarDatos();
+        System.out.println(txtBuscar.getText().toUpperCase() + "<---------------");
+
+        nuevaListaAutos.forEach(listaMulta -> {
+
+            System.out.println(listaMulta.toString());
+        });
+
     }
 
 }

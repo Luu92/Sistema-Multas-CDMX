@@ -32,7 +32,7 @@
                </image>
             </ImageView>
             <TextField fx:id="txtBuscar" layoutX="257.0" layoutY="186.0" prefHeight="44.0" prefWidth="320.0" />
-            <Button fx:id="btnBuscar" layoutX="257.0" layoutY="283.0" mnemonicParsing="false" onMouseClicked="#eventButton" prefHeight="36.0" prefWidth="83.0" style="-fx-background-color: #92D050;" text="Buscar" />
+            <Button fx:id="btnBuscar" layoutX="257.0" layoutY="283.0" mnemonicParsing="false" onAction="#btnListarMultas" prefHeight="36.0" prefWidth="83.0" style="-fx-background-color: #92D050;" text="Buscar" />
             <Button fx:id="btnSalir" layoutX="402.0" layoutY="283.0" mnemonicParsing="false" onAction="#Salir" prefHeight="36.0" prefWidth="74.0" style="-fx-background-color: #92D050;" text="Salir" />
             <Button layoutX="35.0" layoutY="155.0" mnemonicParsing="false" onAction="#Atencion" prefHeight="44.0" prefWidth="152.0" style="-fx-background-color: #92D050;" text="Atencion Ciudadana" />
          </children>
