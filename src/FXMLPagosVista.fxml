@@ -13,7 +13,7 @@
    <children>
       <Pane fx:id="panetitulo" prefHeight="80.0" prefWidth="437.0" style="-fx-background-color: #92D050;">
          <children>
-            <Label fx:id="lbtitulo" layoutX="22.0" layoutY="23.0" text="Pago en Línea">
+            <Label fx:id="lbtitulo" layoutX="22.0" layoutY="23.0" styleClass="tituto" stylesheets="@css/fxmlformadepago.css" text="Pago en Línea">
             </Label>
          </children>
       </Pane>
@@ -49,7 +49,7 @@
       </ImageView>
       <Label layoutX="293.0" layoutY="171.0" text="Cargo:">
       </Label>
-      <Label fx:id="lbmonto" layoutX="290.0" layoutY="206.0" prefHeight="25.0" prefWidth="81.0">
+      <Label fx:id="lbmonto" layoutX="290.0" layoutY="206.0" prefHeight="25.0" prefWidth="110.0" styleClass="etiquetaTotal" stylesheets="@css/fxmlformadepago.css">
       </Label>
    </children>
 </AnchorPane>

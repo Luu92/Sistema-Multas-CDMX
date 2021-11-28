@@ -19,7 +19,7 @@
                </image>
             </ImageView>
          </children></Pane>
-      <TableView fx:id="TablaDetalles" layoutX="328.0" layoutY="118.0" prefHeight="360.0" prefWidth="525.0">
+      <TableView fx:id="TablaDetalles" layoutX="328.0" layoutY="118.0" prefHeight="360.0" prefWidth="525.0" stylesheets="@css/EstilosMultasVistaDetalles.css">
         <columns>
           <TableColumn fx:id="ColMotivo" prefWidth="281.0" text="Motivo" />
           <TableColumn fx:id="ColCosto" minWidth="0.0" prefWidth="128.0" text="Costo $" />
@@ -27,8 +27,8 @@
         </columns>
       </TableView>
       <Label alignment="CENTER" contentDisplay="TOP" layoutX="325.0" layoutY="50.0" prefHeight="59.0" prefWidth="466.0" styleClass="LabelTitulo" stylesheets="@css/EstilosMultasVistaDetalles.css" text="Lista de Multas al Reglamento de Transito" textAlignment="CENTER" />
-      <Button fx:id="btnPagar" layoutX="392.0" layoutY="492.0" mnemonicParsing="false" onAction="#AccionPagar" onMouseClicked="#regresaVentana" prefHeight="50.0" prefWidth="166.0" styleClass="btnPagar" stylesheets="@css/EstilosMultasVistaDetalles.css" text="Pagar" />
-      <Button fx:id="btnAgendar" layoutX="634.0" layoutY="492.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="152.0" styleClass="btnAgendar" stylesheets="@css/EstilosMultasVistaDetalles.css" text="Agendar" />
+      <Button fx:id="btnPagar" layoutX="392.0" layoutY="492.0" mnemonicParsing="false" onAction="#irFormadePago" prefHeight="50.0" prefWidth="166.0" styleClass="btnPagar" stylesheets="@css/EstilosMultasVistaDetalles.css" text="Pagar" />
+      <Button fx:id="btnAgendar" layoutX="634.0" layoutY="492.0" mnemonicParsing="false" onMouseClicked="#agendarCita" prefHeight="50.0" prefWidth="152.0" styleClass="btnAgendar" stylesheets="@css/EstilosMultasVistaDetalles.css" text="Agendar" />
       <ImageView fitHeight="78.0" fitWidth="78.0" layoutX="436.0" layoutY="564.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@img/SistemaMultas-Dinero.png" />

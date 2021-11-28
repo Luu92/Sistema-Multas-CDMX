@@ -1,7 +1,64 @@
-/*
- * Empty Stylesheet file.
- */
 
-.mainFxmlClass {
+.tituto{
+    -fx-font-size: 20px;
+    -fx-font-family: "Arial Black";
+    -fx-text-fill: black;
+    -fx-wrap-text: true;
+}
 
+.btnBuscar{
+    -fx-font-size: 15px;
+    -fx-font-family: "Arial Black";
+    -fx-border-color: black;
+    -fx-border-radius: 10px;
+    -fx-background-color: #92D050;
+}
+
+.btnSalir{
+    -fx-font-size: 15px;
+    -fx-font-family: "Arial Black";
+    -fx-background-color: #92D050;
+    -fx-border-color: black;
+    -fx-border-radius: 10px;
+}
+
+.btnAsistencia{
+    -fx-font-size: 10px;
+    -fx-font-family: "Arial Black";
+    -fx-background-color: #FFA830;
+    -fx-border-color: black;
+    -fx-border-radius: 10px;
+}
+
+
+.btnSalir:hover{
+    -fx-font-size: 15px;
+    -fx-font-family: "Arial Black";
+    -fx-color: white;
+    -fx-background-color: white;
+    -fx-border-color: black;
+    -fx-border-radius: 10px;
+}
+
+
+.btnBuscar:hover{
+    -fx-font-size: 15px;
+    -fx-font-family: "Arial Black";
+    -fx-background-color: white;
+    -fx-border-color: black;
+    -fx-border-radius: 10px;
+}
+
+.btnAsistencia:hover{
+    -fx-font-size: 10px;
+    -fx-font-family: "Arial Black";
+    -fx-background-color: white;
+    -fx-border-color: black;
+    -fx-border-radius: 10px;
+}
+
+.etiquetaTotal{
+    -fx-font-family: "Arial Black";
+    -fx-font-size: 15px;
+    -fx-color: red;
 }

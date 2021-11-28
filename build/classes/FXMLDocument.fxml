@@ -14,27 +14,27 @@
          <children>
             <AnchorPane layoutX="4.0" layoutY="6.0" prefHeight="95.0" prefWidth="678.0" style="-fx-background-color: #92D050;">
                <children>
-                  <Label layoutX="50.0" layoutY="37.0" prefHeight="44.0" prefWidth="522.0" text="Consulta y Pagos Multas de infracciones ">
+                  <Label layoutX="50.0" layoutY="28.0" prefHeight="44.0" prefWidth="522.0" styleClass="tituto" stylesheets="@css/fxmlformadepago.css" text="Consulta y Pagos Multas de infracciones ">
                      
                   </Label>
                </children>
             </AnchorPane>
-            <Label layoutX="257.0" layoutY="128.0" prefHeight="17.0" prefWidth="65.0" text="Placa:">
+            <Label layoutX="257.0" layoutY="128.0" prefHeight="29.0" prefWidth="96.0" styleClass="tituto" stylesheets="@css/fxmlformadepago.css" text="Placa:">
                
             </Label>
             <Label layoutX="257.0" layoutY="250.0" opacity="0.35" prefHeight="17.0" prefWidth="320.0" text="Escriba el número de placa que desea buscar sin espacios" />
-            <TextArea layoutX="226.0" layoutY="367.0" prefHeight="85.0" prefWidth="437.0" text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's &#10;standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to &#10;make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, &#10;remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing &#10;Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including &#10;versions of Lorem Ipsum&#10;">
+            <TextArea layoutX="254.0" layoutY="329.0" prefHeight="138.0" prefWidth="412.0" text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's &#10;standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to &#10;make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, &#10;remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing &#10;Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including &#10;versions of Lorem Ipsum&#10;">
                
             </TextArea>
-            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="35.0" layoutY="301.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="35.0" layoutY="301.0" opacity="0.63" pickOnBounds="true" preserveRatio="true" styleClass="imgPrincipal">
                <image>
                   <Image url="@img/T.jpg" />
                </image>
             </ImageView>
             <TextField fx:id="txtBuscar" layoutX="257.0" layoutY="186.0" prefHeight="44.0" prefWidth="320.0" />
-            <Button fx:id="btnBuscar" layoutX="257.0" layoutY="283.0" mnemonicParsing="false" onAction="#btnListarMultas" prefHeight="36.0" prefWidth="83.0" style="-fx-background-color: #92D050;" text="Buscar" />
-            <Button fx:id="btnSalir" layoutX="402.0" layoutY="283.0" mnemonicParsing="false" onAction="#Salir" prefHeight="36.0" prefWidth="74.0" style="-fx-background-color: #92D050;" text="Salir" />
-            <Button layoutX="35.0" layoutY="155.0" mnemonicParsing="false" onAction="#Atencion" prefHeight="44.0" prefWidth="152.0" style="-fx-background-color: #92D050;" text="Atencion Ciudadana" />
+            <Button fx:id="btnBuscar" layoutX="257.0" layoutY="283.0" mnemonicParsing="false" onAction="#btnListarMultas" prefHeight="36.0" prefWidth="83.0" styleClass="btnBuscar" stylesheets="@css/fxmlformadepago.css" text="Buscar" />
+            <Button fx:id="btnSalir" layoutX="402.0" layoutY="283.0" mnemonicParsing="false" onAction="#Salir" prefHeight="36.0" prefWidth="74.0" styleClass="btnSalir" stylesheets="@css/fxmlformadepago.css" text="Salir" />
+            <Button layoutX="35.0" layoutY="155.0" mnemonicParsing="false" onAction="#Atencion" prefHeight="44.0" prefWidth="152.0" styleClass="btnAsistencia" stylesheets="@css/fxmlformadepago.css" text="Atencion Ciudadana" />
          </children>
       </AnchorPane>
    </children>

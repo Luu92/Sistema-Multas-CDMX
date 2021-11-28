@@ -1,14 +1,7 @@
 
 import DTOModel.Auto;
 import Data.AutoJDBC;
-import com.sun.javafx.logging.PlatformLogger.Level;
 import java.io.IOException;
-
-//LIBRERIAS PARA CONECTARSE A LA BASE DE DATOS
-import java.sql.Connection;//conexion a BD
-
-import java.sql.ResultSet;//resultado final de datos
-import java.sql.Statement;//Generador de sentencias SQL
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -24,7 +17,6 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javax.swing.JOptionPane;
-import jxl.common.Logger;
 
 /**
  *
@@ -42,35 +34,28 @@ public class FXMLDocumentController implements Initializable {
     private TextField txtBuscar;
 
     MultasVistaDetallesController stage1;
-    
-    
-   
+
     @FXML
     private void btnListarMultas(ActionEvent event) {
-
         try {
             if (validarPlaca() == true) {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("MultasVistaDetalles.fxml"));
                 Parent root = loader.load();
                 MultasVistaDetallesController controlador = loader.getController();
                 controlador.placaStage1(txtBuscar.getText().toUpperCase());
-                //MultasVistaDetallesController multasVistaDetalles = new MultasVistaDetallesController();
-                //multasVistaDetalles.placaStage1(txtBuscar.getText());
                 Scene scene = new Scene(root);
                 Stage stage = new Stage();
                 stage.setScene(scene);
                 stage.show();
-                Stage myStage = (Stage) this.btnBuscar.getScene().getWindow();
-                myStage.getIcons().add(new Image(SistemaMultasPSP0.class.getResourceAsStream("/img/SistemaMultas-Logo.png")));
-                myStage.close();
-            }
-            else{
+                stage.getIcons().add(new Image(FXMLDocumentController.class.getResourceAsStream("/img/SistemaMultas-Logo.png")));
+                Stage nuevoStage = (Stage) btnBuscar.getScene().getWindow();
+                nuevoStage.close();
+            } else {
                 JOptionPane.showMessageDialog(null, "La placa no se encontro en el padrón");
             }
 
         } catch (IOException ex) {
             ex.printStackTrace(System.out);
-            //Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -92,16 +77,13 @@ public class FXMLDocumentController implements Initializable {
             System.exit(0);//cierra ventana    
         }
     }
-    
-    
-    
+
     @FXML
     public void Atencion() {
 
         String Vehicular = (JOptionPane.showInputDialog(null, "TRAMITES EN LINEA", "TRAMITES", JOptionPane.PLAIN_MESSAGE, null, new Object[]{"Licencias", "Tramites", "Multas"}, "Selecciona")).toString();
 
         JOptionPane.showConfirmDialog(null, "Elegiste: " + Vehicular, "TRAMITES", JOptionPane.PLAIN_MESSAGE);
-
         if (Vehicular == "Licencias") {
             JOptionPane.showMessageDialog(null, "INFORMACION\n\n " + "(Clave:01) Licencia A vehiculos particulares por 3 años (expedición, reposición y renovación)...	$900.00\n\n" + "(Clave:01) Licencia A vehiculos particulares por 3 años (expedición, reposición y renovación)...	$900.00\n\n"
                     + " (Clave:02) Licencia A 1 motociclistas por 3 años (expedición, reposición y renovación)...	$450.00\n\n"
@@ -306,17 +288,10 @@ public class FXMLDocumentController implements Initializable {
         //   System.exit(0);//cierra ventana    
         // }
     }
-
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        AutoJDBC autoJDBC = new AutoJDBC();
-        List<Auto> nuevaListaAutos = autoJDBC.mostrarDatos();
         
-        nuevaListaAutos.forEach(listaMulta -> {
-
-            System.out.println(listaMulta.toString());
-        });
-
     }
-
+     
+    
 }

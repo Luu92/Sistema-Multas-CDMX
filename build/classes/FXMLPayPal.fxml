@@ -42,7 +42,7 @@
             <Image url="@img/spp.jpeg" />
          </image>
       </ImageView>
-      <Hyperlink fx:id="hlregistra" layoutX="15.0" layoutY="244.0" onAction="#registra" style="-fx-background-color: #EBCA1E;" text="Registrarce" textFill="#140202">
+      <Hyperlink fx:id="hlregistra" layoutX="15.0" layoutY="244.0" onAction="#registra" onMouseClicked="#registra" style="-fx-background-color: #EBCA1E;" text="Registrarce" textFill="#140202">
       </Hyperlink>
    </children>
 </AnchorPane>

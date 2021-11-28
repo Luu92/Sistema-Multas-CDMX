@@ -11,18 +11,16 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 
 /**
  *
@@ -44,69 +42,44 @@ public class MultasVistaDetallesController implements Initializable {
     @FXML
     private Button btnAgendar;
     
+    Multa multa;
+    
     private String placa;
     FXMLDocumentController instancia;
 
-    MultasVistaDetallesController stage_2;
     
     MultaJDBC listamultasJDBC = new MultaJDBC();
-    private ObservableList<Multa> listaMultas = null; //FXCollections.observableArrayList();
-
-    @FXML
-    public void AccionPagar(ActionEvent evento) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLFormadePago.fxml"));
-            AnchorPane root = (AnchorPane) loader.load();
-            FXMLFormadePagoController controlador = (FXMLFormadePagoController) loader.getController();
-            Scene scene = new Scene(root);
-            if (ap != null) {
-                ap.getChildren().clear();
-                ap.getChildren().add(root);
-            }
-            
-        } catch (IOException e) {
-            e.printStackTrace(System.out);
-        }
-    }
-    
+    private ObservableList<Multa> listaMultas = null;
    
     public void placaStage1(String txtBuscar){
         this.placa = txtBuscar;
         MultaJDBC listamultasJDBC = new MultaJDBC();
-        listaMultas = FXCollections.observableArrayList(listamultasJDBC.mostrarDatos());
-        for (Multa listaMulta : listaMultas) {
+        listaMultas = FXCollections.observableArrayList();
+        int contador=0;
+        for (Multa listaMulta : listamultasJDBC.mostrarDatos()) {
             if(placa.equals(listaMulta.getPlaca())){
-                System.out.println("Entro Chido");
-                ColMotivo.setCellValueFactory(new PropertyValueFactory<>("motivo"));
-                ColCosto.setCellValueFactory( new PropertyValueFactory<>("precio"));
-                ColEstatus.setCellValueFactory( new PropertyValueFactory<>("estado"));
-                TablaDetalles.setItems(listaMultas);
-                //listaMultas.add(listaMulta);
+                listaMultas.add(listaMulta);
             }
             else{
                 System.out.println("placa: " + listaMulta.getPlaca());
             }
-      
-        }
+            contador++;
+        }  
         
-    }
-
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        //MultaJDBC listamultasJDBC = new MultaJDBC();
-        //listaMultas = FXCollections.observableArrayList(listamultasJDBC.mostrarDatos());
-        //ColMotivo.setCellValueFactory(new PropertyValueFactory<>("motivo"));
-        //ColCosto.setCellValueFactory( new PropertyValueFactory<>("precio"));
-        //ColEstatus.setCellValueFactory( new PropertyValueFactory<>("estado"));
-        //TablaDetalles.setItems(listaMultas);
+        ColMotivo.setCellValueFactory(new PropertyValueFactory<>("motivo"));
+        ColCosto.setCellValueFactory( new PropertyValueFactory<>("precio"));
+        ColEstatus.setCellValueFactory( new PropertyValueFactory<>("estado"));
+        TablaDetalles.setItems(listaMultas);
     }
 
     @FXML
-    public void regresaVentana() {
+    public void irFormadePago() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLFormadePago.fxml"));
             AnchorPane root = (AnchorPane) loader.load();
             FXMLFormadePagoController controlador = (FXMLFormadePagoController) loader.getController();
+            controlador.multa = multa;
+            System.out.println(controlador.multa + "Probando datos ---------->>>>>");
             if (ap != null) {
                 ap.getChildren().clear();
                 ap.getChildren().add(root);
@@ -115,5 +88,29 @@ public class MultasVistaDetallesController implements Initializable {
             e.printStackTrace(System.out);
         }
     }
-
+    
+    @FXML
+    public void agendarCita(){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLCitas.fxml"));
+            AnchorPane root = (AnchorPane) loader.load();
+            FXMLCitasController controlador = (FXMLCitasController) loader.getController();
+            
+            if (ap != null) {
+                ap.getChildren().clear();
+                ap.getChildren().add(root);
+            }
+        } catch (IOException e) {
+            e.printStackTrace(System.out);
+        }
+    }
+    
+    
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        TablaDetalles.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {this.multa = newValue;});
+        
+    }
+    
+    
 }

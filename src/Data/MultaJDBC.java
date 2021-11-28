@@ -21,7 +21,7 @@ import java.sql.SQLException;
 public class MultaJDBC {
     
     private static final String SQL_SELECT = "SELECT folio,motivo,precio,placa,estado FROM multa";
-    private static final String SQL_UPDATE = "UPDATE multa SET estado = ? WHERE  = ?";
+    private static final String SQL_UPDATE = "UPDATE multa SET estado = ? WHERE  folio = ?";
     
     public List<Multa> mostrarDatos(){
         Connection coneccion = null;
@@ -64,8 +64,8 @@ public class MultaJDBC {
         try {
             coneccionUpdate = getConecction();
             stmt = coneccionUpdate.prepareStatement(SQL_UPDATE);
-            stmt.setString(1,multa.getEstado());
-            stmt.setString(2,multa.getPlaca());
+            stmt.setString(1,"PAGADA");
+            stmt.setInt(2,multa.getFolio());
             eliminados = stmt.executeUpdate();
             
         } catch (Exception e) {

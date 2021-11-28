@@ -35,5 +35,6 @@
         </RadioButton>
         <Button fx:id="btnpago" layoutX="324.0" layoutY="290.0" mnemonicParsing="false" onMouseClicked="#seleccionaPago" prefHeight="43.0" prefWidth="93.0" style="-fx-background-color: #92D050;" text="Aceptar">
         </Button>
+      <Button id="btnCancelar" fx:id="btnCancelar" layoutX="39.0" layoutY="290.0" mnemonicParsing="false" onMouseClicked="#CancelarPago" prefHeight="43.0" prefWidth="93.0" stylesheets="@css/EstilosMultasVistaDetalles.css" text="Cancelar" />
     </children>
 </AnchorPane>
