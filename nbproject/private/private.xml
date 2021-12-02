@@ -3,10 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/DevLuu/Documents/NetBeansProjects/SistemaMultas/src/FXMLFormadePagoController.java</file>
-            <file>file:/C:/Users/DevLuu/Documents/NetBeansProjects/SistemaMultas/src/FXMLPagosVistaController.java</file>
-            <file>file:/C:/Users/DevLuu/Documents/NetBeansProjects/SistemaMultas/src/css/fxmlformadepago.css</file>
-            <file>file:/C:/Users/DevLuu/Documents/NetBeansProjects/SistemaMultas/src/css/EstilosMultasVistaDetalles.css</file>
+            <file>file:/C:/Users/DevLuu/Documents/NetBeansProjects/SistemaMultas/src/Data/ConeccionDB.java</file>
+            <file>file:/C:/Users/DevLuu/Documents/NetBeansProjects/SistemaMultas/src/MultasVistaDetallesController.java</file>
+            <file>file:/C:/Users/DevLuu/Documents/NetBeansProjects/SistemaMultas/src/Data/CitaJDBC.java</file>
+            <file>file:/C:/Users/DevLuu/Documents/NetBeansProjects/SistemaMultas/src/FXMLCitasController.java</file>
         </group>
     </open-files>
 </project-private>

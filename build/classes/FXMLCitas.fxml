@@ -18,9 +18,9 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="624.0" prefWidth="1414.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FXMLCitasController">
+<AnchorPane id="AnchorPane" onMouseClicked="#agendar" prefHeight="691.0" prefWidth="869.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FXMLCitasController">
    <children>
-      <Pane layoutX="8.0" layoutY="14.0" prefHeight="88.0" prefWidth="1392.0" style="-fx-background-color: #92D050;">
+      <Pane layoutX="8.0" layoutY="3.0" prefHeight="99.0" prefWidth="858.0" style="-fx-background-color: #92D050;">
          <children>
             <Label layoutX="22.0" layoutY="14.0" text="Agendar Cita">
                <font>
@@ -34,12 +34,7 @@
             <Font size="24.0" />
          </font>
       </Label>
-      <ImageView fitHeight="233.0" fitWidth="387.0" layoutX="819.0" layoutY="110.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@img/calendario2.jpg" />
-         </image>
-      </ImageView>
-      <Button fx:id="btnAgregar" layoutX="593.0" layoutY="168.0" mnemonicParsing="false" onAction="#agendar" prefHeight="35.0" prefWidth="126.0" style="-fx-background-color: #92D050;" text="AGREGAR">
+      <Button fx:id="btnAgregar" layoutX="613.0" layoutY="167.0" mnemonicParsing="false" onAction="#agendar" prefHeight="35.0" prefWidth="126.0" style="-fx-background-color: #92D050;" text="AGREGAR">
          <font>
             <Font size="16.0" />
          </font>
@@ -50,21 +45,8 @@
             <Font size="24.0" />
          </font>
       </Label>
-      <Button fx:id="btnSalir" layoutX="15.0" layoutY="576.0" mnemonicParsing="false" onAction="#salir" text="salir " />
-      <Button fx:id="btnMostrar" layoutX="949.0" layoutY="537.0" mnemonicParsing="false" onAction="#mostrarTabla" prefHeight="35.0" prefWidth="151.0" style="-fx-background-color: #92D050;" text="MOSTRAR LISTA">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </Button>
-      <TableView fx:id="tabla_consultar" layoutX="679.0" layoutY="351.0" prefHeight="165.0" prefWidth="640.0">
-        <columns>
-          <TableColumn fx:id="columna_numCita" prefWidth="88.0" text="Numero Cita" />
-          <TableColumn fx:id="columna_fecha" minWidth="0.0" prefWidth="108.0" text="Fecha" />
-            <TableColumn fx:id="columna_hora" prefWidth="121.0" text="Hora" />
-            <TableColumn fx:id="columna_lugar" prefWidth="322.0" text="Lugar de verificacion " />
-        </columns>
-      </TableView>
-      <Button fx:id="btnCrearPdf" layoutX="146.0" layoutY="554.0" mnemonicParsing="false" onAction="#crearPdf" prefHeight="35.0" prefWidth="151.0" style="-fx-background-color: #92D050;" text="CREAR PDF ">
+      <Button fx:id="btnSalir" layoutX="32.0" layoutY="642.0" mnemonicParsing="false" onAction="#salir" text="salir " />
+      <Button fx:id="crearPDF" layoutX="518.0" layoutY="623.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="151.0" style="-fx-background-color: #92D050;" text="CREAR PDF ">
          <font>
             <Font size="16.0" />
          </font>
@@ -81,7 +63,7 @@
       <ComboBox fx:id="cbXochimilco" layoutX="326.0" layoutY="488.0" onAction="#comboxXochimilco" prefHeight="25.0" prefWidth="267.0" promptText="DELEGACION XOCHIMILCO" />
       <ComboBox fx:id="cbIztacalco" layoutX="326.0" layoutY="264.0" onAction="#comboxIztacalco" prefHeight="25.0" prefWidth="267.0" promptText="DELEGACION IZTACALCO " />
       <ComboBox fx:id="cbIztapalapa" layoutX="326.0" layoutY="298.0" onAction="#comboxIztapalapa" prefHeight="25.0" prefWidth="267.0" promptText="DELEGACION IZTAPALAPA" />
-      <Button fx:id="btnImprimir" layoutX="326.0" layoutY="554.0" mnemonicParsing="false" onAction="#imprimirReportePdf" prefHeight="35.0" prefWidth="151.0" style="-fx-background-color: #92D050;" text="IMPRIMIR PDF ">
+      <Button fx:id="btnImprimir" layoutX="704.0" layoutY="623.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="151.0" style="-fx-background-color: #92D050;" text="IMPRIMIR PDF ">
          <font>
             <Font size="16.0" />
          </font>
@@ -97,5 +79,10 @@
       <TextField fx:id="txtAgregarMinutos" layoutX="390.0" layoutY="168.0" prefHeight="35.0" prefWidth="32.0" />
       <ComboBox fx:id="cbAmPm" layoutX="429.0" layoutY="173.0" onAction="#comboxAmPm" prefHeight="25.0" prefWidth="61.0" promptText="AM" />
       <Label layoutX="327.0" layoutY="203.0" prefHeight="17.0" prefWidth="191.0" text="Horarios de 9:00 am a  20:00 pm " />
+      <ImageView fitHeight="164.0" fitWidth="242.0" layoutX="613.0" layoutY="317.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@img/calendario2.jpg" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

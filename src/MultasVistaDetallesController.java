@@ -11,6 +11,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -55,15 +56,13 @@ public class MultasVistaDetallesController implements Initializable {
         this.placa = txtBuscar;
         MultaJDBC listamultasJDBC = new MultaJDBC();
         listaMultas = FXCollections.observableArrayList();
-        int contador=0;
         for (Multa listaMulta : listamultasJDBC.mostrarDatos()) {
             if(placa.equals(listaMulta.getPlaca())){
                 listaMultas.add(listaMulta);
             }
-            else{
+            /*else{
                 System.out.println("placa: " + listaMulta.getPlaca());
-            }
-            contador++;
+            }*/
         }  
         
         ColMotivo.setCellValueFactory(new PropertyValueFactory<>("motivo"));
@@ -79,7 +78,6 @@ public class MultasVistaDetallesController implements Initializable {
             AnchorPane root = (AnchorPane) loader.load();
             FXMLFormadePagoController controlador = (FXMLFormadePagoController) loader.getController();
             controlador.multa = multa;
-            System.out.println(controlador.multa + "Probando datos ---------->>>>>");
             if (ap != null) {
                 ap.getChildren().clear();
                 ap.getChildren().add(root);
@@ -92,10 +90,12 @@ public class MultasVistaDetallesController implements Initializable {
     @FXML
     public void agendarCita(){
         try {
+            
+                  
             FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLCitas.fxml"));
             AnchorPane root = (AnchorPane) loader.load();
             FXMLCitasController controlador = (FXMLCitasController) loader.getController();
-            
+            controlador.placaStage1(placa);
             if (ap != null) {
                 ap.getChildren().clear();
                 ap.getChildren().add(root);
