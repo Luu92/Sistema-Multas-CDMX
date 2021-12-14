@@ -1,6 +1,17 @@
 
 import DTOModel.Cita;
 import Data.CitaJDBC;
+import com.itextpdf.io.font.FontConstants;
+import com.itextpdf.kernel.font.PdfFont;
+import com.itextpdf.kernel.font.PdfFontFactory;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.IBlockElement;
+import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.styledxmlparser.jsoup.nodes.Element;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -13,33 +24,16 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javax.swing.JOptionPane;
-//LIBRERIAS PARA CONECTARSE A LA BASE DE DATOS 
-import java.sql.Connection;//conexion a BD
-import java.sql.DriverManager;//driver de conexion
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;//resultado final de datos
 import java.sql.SQLException;//Tratamiento de Errros de BD SQL
-import java.sql.Statement;//Generador de sentencias SQL
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperPrintManager;
-import net.sf.jasperreports.view.JasperViewer;
 
 public class FXMLCitasController implements Initializable {
     //clases de conexion y sus objetos
 
-
-    private Label lblCitaFecha;
-    @FXML
     private Label lblHora;
     @FXML
     private Label lblDelegacionYvereficentro;
@@ -49,8 +43,6 @@ public class FXMLCitasController implements Initializable {
     private Button btnAgregar;
     @FXML
     private Button btnSalir;
-    @FXML
-    private Button btnCrearPdf;
     @FXML
     private Button btnImprimir;
     @FXML
@@ -68,8 +60,8 @@ public class FXMLCitasController implements Initializable {
     private TableColumn<Cita, String> columna_numCita;
 
     private TableColumn<Cita, String> columna_lugar;
-    
-    private TableColumn<Cita,String> colPlaca;
+
+    private TableColumn<Cita, String> colPlaca;
 
     @FXML
     private ComboBox<String> cbTlahuac;
@@ -116,28 +108,14 @@ public class FXMLCitasController implements Initializable {
     @FXML
     private ComboBox<String> cbAmPm;
 
-    ObservableList<Cita> listaCitas = null;
-    
+
     public String placa;
-    @FXML
-    private Label lblcitaFecha;
    
-
-    public void buscarCita_AgregarBD() {
-        /*try {
-            //conectarBase();//llamando funcion para conectar a base de datos 
-            rs = stmt.executeQuery("select * from tregistro where fecha ='" + lblCitaFecha.getText() + "'");//buscar la fecha en BD
-            rs = stmt.executeQuery("select * from tregistro where hora ='" + lblHora.getText() + "'");//buscar hora en BD
-            if (rs.next() == true) {
-                JOptionPane.showMessageDialog(null, "La Cita esta ocupada, selecciona otra hora");
-            } else {
-                mandarRegistroBD();
-            }
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error de BD Busqueda" + ex);
-        }*/
-    }
-
+    private static String DESTINO = "C:\\Users\\DevLuu\\Desktop\\Cita Verificacion.pdf";
+    @FXML
+    private Label etiqueraFecha;
+    @FXML
+    private Label etiquetaHora;
     @FXML
     public void agendar() throws SQLException {
         LocalDate hoy = LocalDate.now();
@@ -146,12 +124,12 @@ public class FXMLCitasController implements Initializable {
 
         if (fechaHoy == null || fechaHoy.isBefore(hoy)) { // condicion para no escoger las fechas anteriores al actual 
             JOptionPane.showMessageDialog(null, "La fecha " + formatoDeFecha + " ha caducado\n\n          seleccione otra");
-            lblCitaFecha.setText("fecha invalida"); //mostrar en el label fecha invalida
+            //lblCitaFecha.setText("fecha invalida"); //mostrar en el label fecha invalida
         } else {
-            lblCitaFecha.setText(formatoDeFecha); // mostrar en el label la fecha validada
-            buscarCita_AgregarBD();// mandamos a llamar la funcion buscar si existe la BD y subirlo a la BD
+            etiqueraFecha.setText(formatoDeFecha);
+            etiquetaHora.setText(txtaAgregarHora.getText() + ":" + txtAgregarMinutos.getText() + " HRS");
             CitaJDBC nuevaCita = new CitaJDBC();
-            Cita CitaNueva = new Cita(formatoDeFecha, lblHora.getText(),lblDelegacionYvereficentro.getText(), placa);
+            Cita CitaNueva = new Cita(formatoDeFecha, etiquetaHora.getText(), lblDelegacionYvereficentro.getText(), placa);
             nuevaCita.insertarCita(CitaNueva);
         }
     }
@@ -161,53 +139,41 @@ public class FXMLCitasController implements Initializable {
         return this.placa;
     }
 
-    public void mostrarTabla() {
-        System.out.println("Entrando a mostrarTabla() <");
-        CitaJDBC nuevaCita = new CitaJDBC();
-        listaCitas = FXCollections.observableArrayList();
-        for (Cita listaCita : listaCitas) {
-            if(placa.equals(listaCita.getPlaca())){
-                listaCitas.add(listaCita);
+    @FXML
+    public void imprimirCita() throws IOException {
+        
+        try {
+            PdfWriter crearCitaPDF = new PdfWriter(DESTINO);
+            PdfDocument archivoPDF = new PdfDocument(crearCitaPDF);
+            PdfFont estiloFuente = PdfFontFactory.createFont(FontConstants.COURIER);
+            Paragraph titulo = new Paragraph("Cita Verificación Control Vehicular de la CDMX");
+            
+           
+            
+            titulo.setBold();
+            titulo.setFontSize(15f);
+            titulo.setFont(estiloFuente);
+            
+            
+           
+            
+            Paragraph cuerpo = new Paragraph();
+            cuerpo.add("\nDatos CVV: " + lblDelegacionYvereficentro.getText()
+                      + "\nPlacas: " + placa.toString()
+                      + "\nFecha Cita: " + etiqueraFecha.getText()
+                      + "\nHora Cita :" + etiquetaHora.getText());
+            cuerpo.setFont(estiloFuente);
+            try (Document diseñoPDF = new Document(archivoPDF)) {
+                diseñoPDF.add(titulo);
+                diseñoPDF.add(cuerpo);
+               
             }
+        } catch (FileNotFoundException ex) {
+            ex.printStackTrace(System.out);
         }
-
-        columna_numCita.setCellValueFactory(new PropertyValueFactory<>("numcita"));
-        columna_fecha.setCellValueFactory(new PropertyValueFactory<>("fecha"));
-        columna_hora.setCellValueFactory(new PropertyValueFactory<>("hora"));
-        columna_lugar.setCellValueFactory(new PropertyValueFactory<>("verificentro"));
-        colPlaca.setCellValueFactory(new PropertyValueFactory<>("placa"));
-        tabla_consultar.setItems(listaCitas);
         
     }
-    /*
-    @FXML
-    public void crearPdf() {
-        //conectarBase();
-        try {
-            String rutaReporte = "src/reportes/rptRegistrosDeCitas.jasper";
-            JasperPrint rptlibrosPDF = JasperFillManager.fillReport(rutaReporte, null, cn);
-            JasperViewer ventanaVisor = new JasperViewer(rptlibrosPDF, false);
-            ventanaVisor.setTitle("Reporte de Citas");
-            ventanaVisor.setVisible(true);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error de BD en informe Verifica\n\n" + e);
-        }
 
-    }
-
-    @FXML
-    public void imprimirReportePdf() {
-        //conectarBase();
-        try {
-            String rutaReporte = "src/reportes/rptRegistrosDeCitas.jasper";
-            JasperPrint rptlibrosPDF = JasperFillManager.fillReport(rutaReporte, null, cn);
-            JasperPrintManager.printReport(rptlibrosPDF, true);
-            JOptionPane.showMessageDialog(null, "Enviando reporte a impresora...");
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error de BD en informe Verifica\n\n" + e);
-        }
-    }
-    */
     @FXML
     public void comboxTlahuac() {
         String tlahuac = cbTlahuac.getSelectionModel().getSelectedItem().toString();
@@ -422,14 +388,6 @@ public class FXMLCitasController implements Initializable {
         cbAmPm.getItems().add("AM");
         cbAmPm.getItems().add("PM");
 
-    }
-
-    @FXML
-    private void crearPdf(ActionEvent event) {
-    }
-
-    @FXML
-    private void imprimirReportePdf(ActionEvent event) {
     }
 
 }

@@ -19,11 +19,11 @@
                </image>
             </ImageView>
          </children></Pane>
-      <TableView fx:id="TablaDetalles" layoutX="328.0" layoutY="118.0" prefHeight="360.0" prefWidth="525.0" stylesheets="@css/EstilosMultasVistaDetalles.css">
+      <TableView fx:id="TablaDetalles" layoutX="328.0" layoutY="118.0" prefHeight="360.0" prefWidth="525.0" styleClass="tablaDetalles" stylesheets="@css/fxmlformadepago.css">
         <columns>
-          <TableColumn fx:id="ColMotivo" prefWidth="281.0" text="Motivo" />
-          <TableColumn fx:id="ColCosto" minWidth="0.0" prefWidth="128.0" text="Costo $" />
-            <TableColumn fx:id="ColEstatus" prefWidth="114.0" text="Estatus" />
+          <TableColumn fx:id="ColMotivo" prefWidth="281.0" resizable="false" styleClass="ColumnaMotivo" text="Motivo" />
+          <TableColumn fx:id="ColCosto" minWidth="0.0" prefWidth="128.0" resizable="false" styleClass="ColumnaCosto" text="Costo $" />
+            <TableColumn fx:id="ColEstatus" prefWidth="114.0" resizable="false" styleClass="ColumnaEstatus" text="Estatus" />
         </columns>
       </TableView>
       <Label alignment="CENTER" contentDisplay="TOP" layoutX="325.0" layoutY="50.0" prefHeight="59.0" prefWidth="466.0" styleClass="LabelTitulo" stylesheets="@css/EstilosMultasVistaDetalles.css" text="Lista de Multas al Reglamento de Transito" textAlignment="CENTER" />

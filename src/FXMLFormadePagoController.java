@@ -52,7 +52,7 @@ public class FXMLFormadePagoController implements Initializable {
 	    AnchorPane root = (AnchorPane)loader.load();	
 	        	
 	    FXMLPayPalController controlador = (FXMLPayPalController)loader.getController();
-            
+           
             
 	    ap.getChildren().clear();
 	    ap.getChildren().add(root);

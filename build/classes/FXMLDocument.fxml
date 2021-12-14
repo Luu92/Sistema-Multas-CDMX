@@ -31,7 +31,7 @@
                   <Image url="@img/T.jpg" />
                </image>
             </ImageView>
-            <TextField fx:id="txtBuscar" layoutX="257.0" layoutY="186.0" prefHeight="44.0" prefWidth="320.0" />
+            <TextField fx:id="txtBuscar" alignment="CENTER" layoutX="257.0" layoutY="186.0" prefHeight="44.0" prefWidth="320.0" style="-fx-border-style: none;" styleClass="BuscarPlaca" stylesheets="@css/fxmlformadepago.css" />
             <Button fx:id="btnBuscar" layoutX="257.0" layoutY="283.0" mnemonicParsing="false" onAction="#btnListarMultas" prefHeight="36.0" prefWidth="83.0" styleClass="btnBuscar" stylesheets="@css/fxmlformadepago.css" text="Buscar" />
             <Button fx:id="btnSalir" layoutX="402.0" layoutY="283.0" mnemonicParsing="false" onAction="#Salir" prefHeight="36.0" prefWidth="74.0" styleClass="btnSalir" stylesheets="@css/fxmlformadepago.css" text="Salir" />
             <Button layoutX="35.0" layoutY="155.0" mnemonicParsing="false" onAction="#Atencion" prefHeight="44.0" prefWidth="152.0" styleClass="btnAsistencia" stylesheets="@css/fxmlformadepago.css" text="Atencion Ciudadana" />
