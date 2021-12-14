@@ -52,8 +52,8 @@ public class FXMLFormadePagoController implements Initializable {
 	    AnchorPane root = (AnchorPane)loader.load();	
 	        	
 	    FXMLPayPalController controlador = (FXMLPayPalController)loader.getController();
-           
-            
+            controlador.setMulta(multa);
+            controlador.setLbtotal(String.valueOf(multa.getPrecio()));
 	    ap.getChildren().clear();
 	    ap.getChildren().add(root);
 			      

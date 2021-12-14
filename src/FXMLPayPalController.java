@@ -2,6 +2,7 @@
 import DTOModel.Multa;
 import DTOModel.Ticket;
 import DTOModel.ValidaDatos;
+import Data.MultaJDBC;
 import java.awt.Desktop;
 import java.io.IOException;
 import java.net.URI;
@@ -12,13 +13,17 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import javax.swing.JOptionPane;
 
 
@@ -46,20 +51,31 @@ public class FXMLPayPalController implements Initializable {
     
     public Multa multa;
 
-    /**
-     * Initializes the controller class.
-     */
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        //inicializaDatos(null);
+    public void setMulta(Multa multa) {
+        this.multa = multa;
     }
 
+    public Multa getMulta() {
+        return multa;
+    }
+
+    public Label getLbtotal() {
+        return lbtotal;
+    }
+
+    public void setLbtotal(String precio) {
+        lbtotal.setText(precio);
+    }
+    
     @FXML
     private void validaCuenta() {
         if (ValidaDatos.validarCorreo(tfcorreo.getText()) && ValidaDatos.validarPassword(pfpass.getText())) {
             JOptionPane.showMessageDialog(null, "Procesando pago", "Sistema de Pagos", JOptionPane.WARNING_MESSAGE);
             Ticket t = new Ticket();
             t.creaTicket();
+            MultaJDBC multaPagada = new MultaJDBC();
+            multaPagada.actualizarMulta(multa);
+            regresaVentanaListaMultas();
         }
         if (tfcorreo.getText().isEmpty() || ValidaDatos.validarCorreo(tfcorreo.getText()) == false) {
             tfcorreo.setText(null);
@@ -93,14 +109,32 @@ public class FXMLPayPalController implements Initializable {
         Desktop.getDesktop().browse(new URI("https://www.paypal.com/mx/webapps/mpp/account-selection"));
     }
 
-    /*public void inicializaDatos(Monto multa) {
-
-        //comentar
-        String m = "1200";
-        //comentar
-        lbtotal.setText("$" + m);
-
-        //lbtotal.setText(String.valueOf(multa.getCosto()));
-    }*/
+    public void regresaVentanaListaMultas() {
+        try {
+            
+           FXMLLoader loader = new FXMLLoader(getClass().getResource("MultasVistaDetalles.fxml"));
+                Parent root = loader.load();
+                MultasVistaDetallesController controlador = loader.getController();
+                controlador.placaStage1(multa.getPlaca().toUpperCase());
+                Scene scene = new Scene(root);
+                Stage stage = new Stage();
+                stage.setScene(scene);
+                stage.show();
+                stage.getIcons().add(new Image(FXMLDocumentController.class.getResourceAsStream("/img/SistemaMultas-Logo.png")));
+                Stage nuevoStage = (Stage) btnpagarcon.getScene().getWindow();
+                nuevoStage.close();
+        } catch (IOException e) {
+            e.printStackTrace(System.out);
+        }
+    }
+    
+    /**
+     * Initializes the controller class.
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        //inicializaDatos(null);
+        
+    }
 
 }

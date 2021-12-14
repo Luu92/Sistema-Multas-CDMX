@@ -76,6 +76,7 @@ public class MultasVistaDetallesController implements Initializable {
             AnchorPane root = (AnchorPane) loader.load();
             FXMLFormadePagoController controlador = (FXMLFormadePagoController) loader.getController();
             controlador.multa = multa;
+            
             if (ap != null) {
                 ap.getChildren().clear();
                 ap.getChildren().add(root);

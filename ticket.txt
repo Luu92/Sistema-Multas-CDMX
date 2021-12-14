@@ -3,9 +3,9 @@
            CONSULTA DE MULTAS
 *****************************************
 
-FECHA:02-12-2021
-HORA: 23:58
-FOLIO: 001499
+FECHA:14-12-2021
+HORA: 2:3
+FOLIO: 005261
 -----------------------------------------
 
 PAGO REALIZADO EN LA APP:

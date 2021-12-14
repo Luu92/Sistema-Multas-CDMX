@@ -7,9 +7,9 @@ import com.itextpdf.kernel.font.PdfFontFactory;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
-import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.element.Paragraph;
-import com.itextpdf.styledxmlparser.jsoup.nodes.Element;
+import com.itextpdf.io.image.*;
+import com.itextpdf.layout.property.TextAlignment;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
@@ -29,6 +29,10 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.image.Image;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
 
 
 public class FXMLCitasController implements Initializable {
@@ -146,23 +150,22 @@ public class FXMLCitasController implements Initializable {
             PdfWriter crearCitaPDF = new PdfWriter(DESTINO);
             PdfDocument archivoPDF = new PdfDocument(crearCitaPDF);
             PdfFont estiloFuente = PdfFontFactory.createFont(FontConstants.COURIER);
+            
             Paragraph titulo = new Paragraph("Cita Verificación Control Vehicular de la CDMX");
-            
-           
-            
             titulo.setBold();
             titulo.setFontSize(15f);
             titulo.setFont(estiloFuente);
-            
-            
+            titulo.setTextAlignment(TextAlignment.CENTER);
            
-            
             Paragraph cuerpo = new Paragraph();
             cuerpo.add("\nDatos CVV: " + lblDelegacionYvereficentro.getText()
-                      + "\nPlacas: " + placa.toString()
+                      + "\nPlacas: " + placa
                       + "\nFecha Cita: " + etiqueraFecha.getText()
                       + "\nHora Cita :" + etiquetaHora.getText());
             cuerpo.setFont(estiloFuente);
+            
+            
+            
             try (Document diseñoPDF = new Document(archivoPDF)) {
                 diseñoPDF.add(titulo);
                 diseñoPDF.add(cuerpo);

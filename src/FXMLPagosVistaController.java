@@ -29,6 +29,13 @@ import DTOModel.BinTarjetas;
 import DTOModel.Multa;
 import DTOModel.Ticket;
 import Data.MultaJDBC;
+import javafx.event.ActionEvent;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.stage.Stage;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 
 public class FXMLPagosVistaController implements Initializable {
 
@@ -60,9 +67,9 @@ public class FXMLPagosVistaController implements Initializable {
     private Label tffolio;
     @FXML
     private AnchorPane ap;
-    
+
     Multa multa;
-    
+
     private final String[] mes = {"01-Ene", "02-Feb", "03-Mar", "04-Abr", "05-May", "06-Jun", "07-Jul", "08-Ago",
         "09-Sep", "10-Oct", "11-Nov", "12-Dic"};
     Date date = new Date();
@@ -84,8 +91,7 @@ public class FXMLPagosVistaController implements Initializable {
     public Label getLbmonto() {
         return lbmonto;
     }
-    
-    
+
     @FXML
     private void validarTarjeta() {
 
@@ -93,9 +99,9 @@ public class FXMLPagosVistaController implements Initializable {
                 && ValidaDatos.validarAnio(tfanio.getText()) && !tfmes.getSelectionModel().isEmpty()
                 && ValidaDatos.validarCvv(pfcvv.getText()) && caducoTarjeta() == false && encuentraBanco() == true) {
 
-            JOptionPane.showMessageDialog(null, "Procesando pago", "Sistema de Pagos", JOptionPane.WARNING_MESSAGE);
             Ticket t = new Ticket();
             t.creaTicket();
+            
         }
         if (tftitular.getText().isEmpty() || ValidaDatos.validarNombre(tftitular.getText()) == false) {
             tftitular.setText(null);
@@ -125,7 +131,7 @@ public class FXMLPagosVistaController implements Initializable {
         }
         MultaJDBC multaPagada = new MultaJDBC();
         multaPagada.actualizarMulta(multa);
-
+        regresaVentanaListaMultas();
     }
 
     private boolean caducoTarjeta() {
@@ -142,22 +148,6 @@ public class FXMLPagosVistaController implements Initializable {
         }
     }
 
-    public boolean encuentraBanco() {
-        BinTarjetas bin = new BinTarjetas();
-
-        String cadenaTarjeta = tftarjeta.getText().substring(0, 4);
-        int enteroTarjeta = Integer.valueOf(cadenaTarjeta);
-
-        if (bin.identificaBanco(enteroTarjeta)) {
-            JOptionPane.showMessageDialog(null, "Banco existe", "Sistema de Pagos", JOptionPane.WARNING_MESSAGE);
-            return true;
-
-        } else {
-            JOptionPane.showMessageDialog(null, "El numero de tarjeta no existe", "Sistema de Pagos", JOptionPane.WARNING_MESSAGE);
-            return false;
-        }
-    }
-
     @FXML
     public void regresaVentana() {
         try {
@@ -167,35 +157,76 @@ public class FXMLPagosVistaController implements Initializable {
 
             ap.getChildren().clear();
             ap.getChildren().add(root);
-
+            
         } catch (IOException e) {
             e.printStackTrace(System.out);
         }
     }
-    
-   
+
+    public void regresaVentanaListaMultas() {
+        try {
+            
+           FXMLLoader loader = new FXMLLoader(getClass().getResource("MultasVistaDetalles.fxml"));
+                Parent root = loader.load();
+                MultasVistaDetallesController controlador = loader.getController();
+                controlador.placaStage1(multa.getPlaca().toUpperCase());
+                Scene scene = new Scene(root);
+                Stage stage = new Stage();
+                stage.setScene(scene);
+                stage.show();
+                stage.getIcons().add(new Image(FXMLDocumentController.class.getResourceAsStream("/img/SistemaMultas-Logo.png")));
+                Stage nuevoStage = (Stage) btnpagar.getScene().getWindow();
+                nuevoStage.close();
+        } catch (IOException e) {
+            e.printStackTrace(System.out);
+        }
+    }
+
+    public boolean encuentraBanco() {
+        BinTarjetas bin = new BinTarjetas();
+
+        String cadenaTarjeta = tftarjeta.getText().substring(0, 4);
+        int enteroTarjeta = Integer.valueOf(cadenaTarjeta);
+
+        if (bin.tipoBanco(enteroTarjeta) == "BBVA") {
+            Icon icono = new ImageIcon(getClass().getResource("/img/BBVA.png"));
+            JOptionPane.showMessageDialog(null, null, "Pago realizado con", JOptionPane.WARNING_MESSAGE, icono);
+            return true;
+
+        } else if (bin.tipoBanco(enteroTarjeta) == "BNMX") {
+            Icon icono = new ImageIcon(getClass().getResource("/img/banamex.png"));
+            JOptionPane.showMessageDialog(null, null, "Pago realizado con", JOptionPane.WARNING_MESSAGE, icono);
+            return true;
+        } else if (bin.tipoBanco(enteroTarjeta) == "HSBC") {
+            Icon icono = new ImageIcon(getClass().getResource("/img/HSBC.png"));
+            JOptionPane.showMessageDialog(null, null, "Pago realizado con", JOptionPane.WARNING_MESSAGE, icono);
+            return true;
+
+        } else if (bin.tipoBanco(enteroTarjeta) == "BNRT") {
+            Icon icono = new ImageIcon(getClass().getResource("/img/banorte.png"));
+            JOptionPane.showMessageDialog(null, null, "Pago realizado con", JOptionPane.WARNING_MESSAGE, icono);
+            return true;
+
+        } else if (bin.tipoBanco(enteroTarjeta) == "SANT") {
+            Icon icono = new ImageIcon(getClass().getResource("/img/santander.png"));
+            JOptionPane.showMessageDialog(null, null, "Pago realizado con", JOptionPane.WARNING_MESSAGE, icono);
+            return true;
+
+        } else if (bin.tipoBanco(enteroTarjeta).equals("INB")) {
+            Icon icono = new ImageIcon(getClass().getResource("/img/inbursa.jpg"));
+            JOptionPane.showMessageDialog(null, null, "Pago realizado con", JOptionPane.WARNING_MESSAGE, icono);
+            return true;
+        } else {
+            JOptionPane.showMessageDialog(null, "La tarjeta no existe", "Error", JOptionPane.WARNING_MESSAGE);
+        }
+        return false;
+
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        //Se agrega el arreglo de meses al choiceBox    
         tfmes.getItems().addAll(mes);
-        //MultasVistaDetallesController instancia = new MultasVistaDetallesController();
-        //multa = instancia.multa;
-        //lbmonto.setText(Float.toString(multa.getPrecio()));
-        //SE agrega un titulo al choiceBox
-        /*Platform.runLater(() -> {
-            SkinBase<ChoiceBox<String>> skin = (SkinBase<ChoiceBox<String>>) tfmes.getSkin();
-            // children contain only "Label label" and "StackPane openButton"
-            for (Node child : skin.getChildren()) {
-                if (child instanceof Label) {
-                    Label label = (Label) child;
-                    if (label.getText().isEmpty()) {
-                        label.setText("mes");
-                    }
-                    return;
-                }
-            }
-        });*/
+
     }
 
 }
